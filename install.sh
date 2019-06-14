@@ -127,12 +127,6 @@ echo "服务器启动成功."
 fi
 }
 #函数
-if [ "$1" = "-u" ]; then
-rm -rf install.sh
-mv install_latest.sh install.sh
-mv install.sh $dir/
-exit
-fi
 if [ "$1"x = "-b"x ]; then 
 backup
 exit
@@ -416,9 +410,8 @@ echo "已是最新版本."
 else
 read -p "发现新版本$scriptver,是否升级脚本?请输入yes确认升级!" update
 if [ "$update" = "yes" ]; then
-wget -N --no-check-certificate -o install_latest.sh https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh
+wget -N --no-check-certificate -O install_latest.sh https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh
 chmod +x install_latest.sh
-./install_latest.sh -u
 echo "升级完成!"
 else
 echo "中止."
