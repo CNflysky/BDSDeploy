@@ -3,17 +3,11 @@
 #last edited by CNflysky 2019.4.15
 #变量
 dir="/opt"
-version="0.13 Alpha"
+sversion="0.13 Alpha"
 currentime=$(date "+%m%d")
 name=""
 #变量
 #函数
-if [ "$1" = "-u" ]; then
-rm -rf install.sh
-mv install_latest.sh install.sh
-mv install.sh $dir/
-exit
-fi
 backup(){
 if screen -ls mc | grep -q mc ;then
 screen -x -S mc -p 0 -X stuff "save hold"
@@ -133,15 +127,21 @@ echo "服务器启动成功."
 fi
 }
 #函数
-if [ ! `whoami` == "root" ];then
-echo "请使用root用户运行该脚本!"
+if [ "$1" = "-u" ]; then
+rm -rf install.sh
+mv install_latest.sh install.sh
+mv install.sh $dir/
 exit
-fi 
+fi
 if [ "$1"x = "-b"x ]; then 
 backup
 exit
 fi
-echo "-------Minecraft BE Server Manager By CNflysky v$version------"
+if [ ! `whoami` == "root" ];then
+echo "请使用root用户运行该脚本!"
+exit
+fi
+echo "-------Minecraft BE Server Manager By CNflysky v$sversion------"
 echo "请输入数字选择您需要的功能:"
 echo "1:安装 Minecraft BE服务器"
 echo "2:升级 Minecraft BE服务器"
@@ -166,19 +166,18 @@ if [ ! -f "/usr/local/bin/mc" ]; then
 mv install.sh $dir
 ln -s $dir/install.sh /usr/local/bin/mc
 fi
-if [ -f "$dir/mc/version" ]; then
+if [ -d $dir/mc ]; then
 installedver=$(cat $dir/mc/version)
 echo "服务器已安装版本:$installedver"
-fi
-screen -ls | grep -q mc
-if [ $? -eq 0 ] && [ -d "$dir/mc" ];then
-echo "服务器状态:已安装 且 正在运行!"
-elif [ $? -eq 1 ] && [ -d "$dir/mc" ];then
-echo "服务器状态:已安装 且 未在运行!"
+if screen -ls | grep -q mc ; then
+echo "服务器状态:已安装 且 已启动!"
 else 
-echo "服务器状态:未安装!"
+echo "服务器状态:已安装 且 未启动!"
 fi
-echo "提示:安装后直接输入mc以打开本界面"
+else
+echo "服务器状态:未安装"
+fi
+echo "提示:第一次打开脚本后请直接输入mc以打开本界面!"
 read -p "请输入数字[1-15]:" function
 if [ ! "$function" = 1  ] && [ ! -d "$dir/mc" ]; then
 echo "未发现服务器安装目录!"
@@ -408,8 +407,10 @@ fi
 ;;
 17)
 echo "正在检查新版本..."
-scriptver=$(curl cnflysky.cn/downloads/version)
-if [ "$scriptver" = "$version" ]; then
+rawfile=$(curl -s https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh | grep -q "version=" )
+rawv=${rawfile#*="}
+sver=${rawv%"}
+if [ "$scriptver" = "$sversion" ]; then
 echo "已是最新版本."
 else
 read -p "发现新版本$scriptver,是否升级脚本?请输入yes确认升级!" update
