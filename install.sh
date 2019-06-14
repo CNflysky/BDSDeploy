@@ -1,9 +1,9 @@
-#!/bin/bash
+﻿#!/bin/bash
 #Copyright© 2000-2019 CNflysky. <cnflysky@qq.com> All rights Reserved.
 #last edited by CNflysky 2019.4.15
 #变量
 dir="/opt"
-sversion="0.13 Alpha"
+sversion="0.14 Alpha"
 currentime=$(date "+%m%d")
 name=""
 #变量
@@ -178,7 +178,7 @@ else
 echo "服务器状态:未安装"
 fi
 echo "提示:第一次打开脚本后请直接输入mc以打开本界面!"
-read -p "请输入数字[1-15]:" function
+read -p "请输入数字[1-18]:" function
 if [ ! "$function" = 1  ] && [ ! -d "$dir/mc" ]; then
 echo "未发现服务器安装目录!"
 exit
@@ -407,15 +407,16 @@ fi
 ;;
 17)
 echo "正在检查新版本..."
-rawfile=$(curl -s https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh | grep -q "version=" )
-rawv=${rawfile#*="}
-sver=${rawv%"}
+rawfile=$(curl -s https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh | grep "sversion=\"" )
+rawv=${rawfile#*=\"}
+scriptver=${rawv%\"}
+sleep 0.5s
 if [ "$scriptver" = "$sversion" ]; then
 echo "已是最新版本."
 else
 read -p "发现新版本$scriptver,是否升级脚本?请输入yes确认升级!" update
 if [ "$update" = "yes" ]; then
-wget -N --no-check-certificate cnflysky.cn/downloads/install_latest.sh
+wget -N --no-check-certificate -o install_latest.sh https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh
 chmod +x install_latest.sh
 ./install_latest.sh -u
 echo "升级完成!"
