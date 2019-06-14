@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 #Copyright© 2000-2019 CNflysky. <cnflysky@qq.com> All rights Reserved.
 #last edited by CNflysky 2019.4.15
 #变量
