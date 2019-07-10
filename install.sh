@@ -198,7 +198,7 @@ getVersion
 axel -n 20 -o server.zip "https://minecraft.azureedge.net/bin-linux/bedrock-server-$sver.zip"
 if [ ! -f "server.zip" ]; then
 echo "无法下载服务端."
-rm -rf $dir/mc
+rm -rf mc
 exit
 fi
 unzip server.zip
@@ -221,12 +221,12 @@ else
 read -p "发现新版本$sver,是否更新?输入yes确认更新:" confirmupdate
 if [ -n "$confirmupdate" ] && [ "$confirmupdate"x = "yes"x ]; then
 shutdownServer
+cd $dir
 axel -n 20 -o server.zip "https://minecraft.azureedge.net/bin-linux/bedrock-server-$sver.zip"
 if [ ! -f "server.zip" ]; then
 echo "无法下载服务端."
 exit
 fi
-cd $dir
 mkdir mc-temp
 mv server.zip mc-temp
 cd mc-temp
