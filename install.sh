@@ -1,6 +1,6 @@
 #!/bin/bash
 #Copyright© 2000-2019 CNflysky. <cnflysky@qq.com> All rights Reserved.
-#last edited by CNflysky 2019.4.15
+last edited by CNflysky 2019.7.10
 #变量
 dir="/opt"
 sversion="0.15 Alpha"
