@@ -3,7 +3,7 @@
 #last edited by CNflysky 2019.4.15
 #变量
 dir="/opt"
-sversion="0.14 Alpha"
+sversion="0.15 Alpha"
 currentime=$(date "+%m%d")
 name=""
 #变量
