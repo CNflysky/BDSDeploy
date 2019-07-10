@@ -410,6 +410,7 @@ echo "已是最新版本."
 else
 read -p "发现新版本$scriptver,是否升级脚本?请输入yes确认升级!" update
 if [ "$update" = "yes" ]; then
+rm -rf $dir/install.sh
 wget -N --no-check-certificate https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh
 echo "升级完成!"
 exit
