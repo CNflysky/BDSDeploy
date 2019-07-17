@@ -394,7 +394,7 @@ echo "自动备份服务说明:每天0点自动备份,备份文件保留7天"
 ;;
 16)
 if [ -f "$dir/mc/server.properties" ]; then
-nano $dir/mc/server.properties
+editor $dir/mc/server.properties
 else
 echo "未找到配置文件."
 fi
