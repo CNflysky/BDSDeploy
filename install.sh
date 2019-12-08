@@ -411,6 +411,7 @@ else
 	if [ "$update" = "yes" ]; then
 		rm -rf $dir/install.sh
 		wget -N --no-check-certificate https://raw.githubusercontent.com/CNflysky/BDSDeploy/master/install.sh
+		mv install.sh $dir
 		echo "升级完成!"
 		exit
 	else
