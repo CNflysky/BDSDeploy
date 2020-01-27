@@ -210,6 +210,7 @@ else
 		echo "服务器已启动!"
 		rm server.zip
 	fi
+	fi
 ;;
 2)
 echo "正在检测新版本..."
